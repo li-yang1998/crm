@@ -17,6 +17,7 @@ public class BaseController {
     public ResultInfo success(){
         return new ResultInfo();
     }
+
     public ResultInfo success(String msg){
         ResultInfo resultInfo= new ResultInfo();
         resultInfo.setMsg(msg);

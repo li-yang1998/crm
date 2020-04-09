@@ -207,6 +207,11 @@
         </where>
   </select>
   
-
+<delete id="deleteBatch" parameterType="int">
+  delete from t_sale_chance where  id in
+  <foreach collection="array" item="item" open="(" separator="," close=")">
+        #{item}
+  </foreach>
+</delete>
 
 </mapper>

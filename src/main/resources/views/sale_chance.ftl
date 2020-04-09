@@ -82,7 +82,7 @@
             </tr>
             <tr>
                 <td>指派给：</td>
-                <td><input class="easyui-combobox" id="assignMan" name="assignMan" data-options="panelHeight:'auto',editable:false,valueField:'trueName',textField:'trueName',url:'${ctx}/user/queryCustomerManager.do'"/></td>
+                <td><input class="easyui-combobox" id="assignMan" name="assignMan" data-options="panelHeight:'auto',editable:false,valueField:'trueName',textField:'trueName',url:''"/></td>
             </tr>
         </table>
         <input name="id" type="hidden"/>
