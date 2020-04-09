@@ -10,7 +10,6 @@ function login() {
         alert("请输入密码!");
         return;
     }
-
     $.ajax({
         type:"post",
         url:ctx+"/user/login",
@@ -20,11 +19,10 @@ function login() {
         },
         dataType:"json",
         success:function (data) {
-            console.log(data);
             if(data.code==200){
-                var result =data.result;
+                var result = data.result;
                 /**
-                 * 写入cookie 到浏览器
+                 * 写入cookie到浏览器
                  */
                 $.cookie("userIdStr",result.userIdStr);
                 $.cookie("userName",result.userName);
@@ -34,9 +32,13 @@ function login() {
                 alert(data.msg);
             }
         }
-    })
-
-
-
-
+    });
 }
+
+//跳转注册页面
+function openRegisterUser() {
+    $("#register").dialog("open");
+}
+
+
+
