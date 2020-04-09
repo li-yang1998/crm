@@ -59,13 +59,14 @@
 
     <div class="create-account">
         <p>
-            <a href="javascript:;" id="register-btn" class="uppercase">注册</a>
+            <a href="#" onclick="openRegisterUser()" class="uppercase">注册</a>
         </p>
     </div>
     <!-- END LOGIN FORM -->
 
     <!-- BEGIN REGISTRATION FORM -->
-    <form class="register-form" action="index.html" method="post">
+
+    <form  class="register-form" action="index.html" method="post">
         <h3>注册</h3>
         <p class="hint">
             输入个人信息
