@@ -48,12 +48,14 @@ function searchSaleChance() {
 
 function openSaleChanceAddDialog() {
 
-    $("#dlg").dialog("open").dialog("setTitle","机会数据添加");
+   // $("#dlg").dialog("open").dialog("setTitle","机会数据添加");
+    baseOpenDialog("dlg","机会数据添加");
 }
 
 
 function closeSaleChanceDialog() {
-    $("#dlg").dialog("close");
+    //$("#dlg").dialog("close");
+    closeDialog("dlg");
 }
 
 function clearFormData() {
@@ -89,20 +91,11 @@ function saveOrUpdateSaleChance() {
             }
         }
     })
+
 }
 
 function openSaleChanceModifyDialog() {
-    var rows = $("#dg").datagrid("getSelections");
-    if(rows.length==0){
-        $.messager.alert("来自系统信息","请选择待修改的机会数据!","error");
-        return;
-    }
-    if(rows.length>1){
-        $.messager.alert("来自系统信息","暂不支持批量修改!","error");
-        return;
-    }
-    $("#fm").form("load",rows[0]);
-    $("#dlg").dialog("open").dialog("setTitle","机会数据修改");
+    openModifDialog("dg","dlg","fm","机会数据修改");
 }
 
 //删除功能
@@ -137,4 +130,5 @@ function deleteSaleChance() {
             })
         }
     });
+
 }

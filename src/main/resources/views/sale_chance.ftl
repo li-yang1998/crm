@@ -3,6 +3,7 @@
 <head>
     <#include "common.ftl" >
     <script type="text/javascript" src="${ctx}/static/js/common.js"></script>
+    <script type="text/javascript" src="${ctx}/static/js/base.js"></script>
     <script type="text/javascript" src="${ctx}/static/js/sale.chance.js"></script>
 </head>
 <body style="margin: 1px">

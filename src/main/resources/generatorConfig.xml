@@ -42,7 +42,7 @@
 
 
 
-        <table tableName="t_sale_chance" domainObjectName="SaleChance"
+        <table tableName="t_module" domainObjectName="Module"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 

@@ -189,7 +189,13 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  
+  <update id="updateDevResult" parameterType="com.shsxt.crm.query.CusDevPlanQuery">
+    update  t_sale_chance
+    set dev_result=#{devResult}
+    where is_valid=1 and id=#{sid}
+  </update>
+
+
   <select id="selectByParams" parameterType="com.shsxt.crm.query.SaleChanceQuery" resultType="com.shsxt.crm.vo.SaleChance">
         select <include refid="Base_Column_List" />
         from t_sale_chance
@@ -206,8 +212,14 @@
           </if>
         </where>
   </select>
-  
-<delete id="deleteBatch" parameterType="int">
+
+    <select id="selectCusDevPlanQuery" resultType="int" parameterType="com.shsxt.crm.query.CusDevPlanQuery">
+        select <include refid="Base_Column_List"/>
+        from  t_sale_chance
+        where
+    </select>
+
+    <delete id="deleteBatch" parameterType="int">
   delete from t_sale_chance where  id in
   <foreach collection="array" item="item" open="(" separator="," close=")">
         #{item}

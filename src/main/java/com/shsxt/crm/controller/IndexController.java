@@ -2,7 +2,6 @@ package com.shsxt.crm.controller;
 
 import com.shsxt.base.BaseController;
 import com.shsxt.crm.service.UserService;
-import com.shsxt.crm.utils.CookieUtil;
 import com.shsxt.crm.utils.LoginUserUtil;
 import com.shsxt.crm.vo.User;
 import org.springframework.stereotype.Controller;
