@@ -1,6 +1,7 @@
 package com.shsxt.crm;
 
 
+import com.shsxt.crm.exceptions.AuthFailedException;
 import com.shsxt.crm.exceptions.NoLoginException;
 import com.shsxt.crm.exceptions.ParamsException;
 import com.shsxt.crm.model.ResultInfo;
@@ -55,6 +56,11 @@ public class GlobalExceptionResolver implements HandlerExceptionResolver {
                     ParamsException pe = (ParamsException) ex;
                     mv.addObject("msg", pe.getMsg());
                     mv.addObject("code", pe.getCode());
+                }
+                if(ex instanceof AuthFailedException){
+                    AuthFailedException pe = (AuthFailedException) ex;
+                    mv.addObject("msg",pe.getMsg());
+                    mv.addObject("code",pe.getCode());
                 }
                 return mv;
             } else {
