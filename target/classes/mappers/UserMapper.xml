@@ -15,6 +15,7 @@
   <sql id="Base_Column_List" >
     id, user_name, user_pwd, true_name, email, phone, is_valid, create_date, update_date
   </sql>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
@@ -29,20 +30,32 @@
   </select>
 
 
+  <select id="selectByParams" parameterType="com.shsxt.crm.query.UserQuery" resultType="com.shsxt.crm.vo.User">
+    select
+    u.*,
+    IFNULL(GROUP_CONCAT(ur.role_id),"") as rids
+    from t_user u LEFT JOIN t_user_role ur on u.id  =ur.user_id
+    <where>
+      is_valid=1
+      <if test="null !=userName and userName !=''">
+        and user_name like concat('%',#{userName},'%')
+      </if>
+      <if test="null !=phone and phone !=''">
+        and phone =#{phone}
+      </if>
+      <if test="null !=trueName and trueName !=''">
+        and true_name =#{trueName}
+      </if>
+    </where>
+    GROUP BY u.id
+  </select>
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_user
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.shsxt.crm.vo.User" >
-    insert into t_user (id, user_name, user_pwd, 
-      true_name, email, phone, 
-      is_valid, create_date, update_date
-      )
-    values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{userPwd,jdbcType=VARCHAR}, 
-      #{trueName,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
-      #{isValid,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}
-      )
-  </insert>
+
   <insert id="insertSelective" parameterType="com.shsxt.crm.vo.User" >
     insert into t_user
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -134,16 +147,75 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.shsxt.crm.vo.User" >
-    update t_user
-    set user_name = #{userName,jdbcType=VARCHAR},
-      user_pwd = #{userPwd,jdbcType=VARCHAR},
-      true_name = #{trueName,jdbcType=VARCHAR},
-      email = #{email,jdbcType=VARCHAR},
-      phone = #{phone,jdbcType=VARCHAR},
-      is_valid = #{isValid,jdbcType=INTEGER},
-      create_date = #{createDate,jdbcType=TIMESTAMP},
-      update_date = #{updateDate,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+
+  <delete id="deleteBatch" parameterType="int">
+    delete from <include refid="Base_Column_List"/>
+    where id in
+    <foreach collection="array" item="item" open="(" separator="," close=")">
+       id=#{item}
+    </foreach>
+  </delete>
+
+  <insert id="insertHasKey" parameterType="com.shsxt.crm.vo.User" useGeneratedKeys="true" keyProperty="id">
+    insert into t_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="userPwd != null" >
+        user_pwd,
+      </if>
+      <if test="trueName != null" >
+        true_name,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="isValid != null" >
+        is_valid,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPwd != null" >
+        #{userPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="trueName != null" >
+        #{trueName,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="isValid != null" >
+        #{isValid,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
 </mapper>

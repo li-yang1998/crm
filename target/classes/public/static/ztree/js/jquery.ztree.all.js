@@ -3360,7 +3360,7 @@
 
         // 2018-03-30 FireFox has fixed this issue.
         //Avoid FireFox's Bug
-        //If zTree Div CSS set 'overflow', so drag node outside of zTree, and event.target is error.
+        //If zTree Div CSS set 'overflow', so drag node outside of zTree, and event.target is errors.ftl.
         // if(eventMouseDown.preventDefault) {
         // 	eventMouseDown.preventDefault();
         // }
