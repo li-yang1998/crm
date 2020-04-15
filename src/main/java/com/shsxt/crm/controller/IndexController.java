@@ -1,6 +1,8 @@
 package com.shsxt.crm.controller;
 
 import com.shsxt.base.BaseController;
+import com.shsxt.crm.dto.ModuleDto;
+import com.shsxt.crm.service.ModuleService;
 import com.shsxt.crm.service.PermissionService;
 import com.shsxt.crm.service.UserService;
 import com.shsxt.crm.utils.LoginUserUtil;
@@ -20,6 +22,8 @@ public class IndexController extends BaseController {
     private UserService userService;
     @Resource
     private PermissionService permissionService;
+    @Resource
+    private ModuleService moduleService;
     /**
      * 登录页
      * @return
@@ -39,6 +43,8 @@ public class IndexController extends BaseController {
         int userId = LoginUserUtil.releaseUserIdFromCookie(request);
         List<String> permissions=permissionService.queryUserHasRoleHasPermission(userId);
         request.getSession().setAttribute("permissions",permissions);
+
+        request.getSession().setAttribute("modules",moduleService.queryUserHasRoleHasModuleDtos(userId));
         //通过解密后的userId查询user
         User user = userService.selectByPrimaryKey(userId);
         //存储user对象
